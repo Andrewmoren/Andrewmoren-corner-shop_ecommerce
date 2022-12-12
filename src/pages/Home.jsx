@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Helmet from "../components/Helmet/Helmet";
 import "../styles/home.css";
@@ -10,6 +10,8 @@ import heroImg from "../assets/images/hero-img.png";
 import { Link } from "react-router-dom";
 
 import Services from "../services/Services";
+import ProductsList from "../components/UI/ProductsList";
+import products from "../assets/data/products";
 
 const Home = () => {
   const year = new Date().getFullYear();
@@ -50,6 +52,7 @@ const Home = () => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Treding Products</h2>
             </Col>
+            <ProductsList />
           </Row>
         </Container>
       </section>
