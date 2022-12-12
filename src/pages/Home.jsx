@@ -14,7 +14,16 @@ import ProductsList from "../components/UI/ProductsList";
 import products from "../assets/data/products";
 
 const Home = () => {
+  const [data, setData] = useState(products);
   const year = new Date().getFullYear();
+
+  useEffect(() => {
+    const filtredProducts = products.filter(
+      (item) => item.category === "chair"
+    );
+
+    setData(filtredProducts);
+  }, []);
   return (
     <Helmet title={"Home"}>
       <section className="hero__section">
@@ -52,7 +61,7 @@ const Home = () => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Treding Products</h2>
             </Col>
-            <ProductsList />
+            <ProductsList data={data} />
           </Row>
         </Container>
       </section>
