@@ -9,6 +9,8 @@ import { Container, Row, Col } from "reactstrap";
 import heroImg from "../assets/images/hero-img.png";
 import { Link } from "react-router-dom";
 
+import Services from "../services/Services";
+
 const Home = () => {
   const year = new Date().getFullYear();
   return (
@@ -37,6 +39,16 @@ const Home = () => {
               <div className="hero__img">
                 <img src={heroImg} alt="hero" />
               </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+      <Services />
+      <section className="treding__products">
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center">
+              <h2 className="section__title">Treding Products</h2>
             </Col>
           </Row>
         </Container>
