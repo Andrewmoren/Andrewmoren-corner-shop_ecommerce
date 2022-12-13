@@ -39,3 +39,7 @@
 .hero__content {
     padding-top: 45px;
 }
+
+.timer__count {
+    background: var(--primary-color);
+}

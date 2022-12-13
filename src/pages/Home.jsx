@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Container, Row, Col } from "reactstrap";
 
 import heroImg from "../assets/images/hero-img.png";
+import counterImg from "../assets/images/counter-timer-img.png";
 import { Link } from "react-router-dom";
 
 import Services from "../services/Services";
@@ -14,15 +15,22 @@ import ProductsList from "../components/UI/ProductsList";
 import products from "../assets/data/products";
 
 const Home = () => {
-  const [data, setData] = useState(products);
+  const [trendingProduct, setTrendingProduct] = useState([]);
+  const [bestSalesProduct, setBestSalesProduct] = useState([]);
+
   const year = new Date().getFullYear();
 
   useEffect(() => {
-    const filtredProducts = products.filter(
+    const filtredTrendingProducts = products.filter(
       (item) => item.category === "chair"
     );
 
-    setData(filtredProducts);
+    const filtredBestSalesProduct = products.filter(
+      (item) => item.category === "sofa"
+    );
+
+    setTrendingProduct(filtredTrendingProducts);
+    setBestSalesProduct(filtredBestSalesProduct);
   }, []);
   return (
     <Helmet title={"Home"}>
@@ -61,7 +69,31 @@ const Home = () => {
             <Col lg="12" className="text-center">
               <h2 className="section__title">Treding Products</h2>
             </Col>
-            <ProductsList data={data} />
+            <ProductsList data={trendingProduct} />
+          </Row>
+        </Container>
+      </section>
+
+      <section className="best__sales">
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center">
+              <h2 className="section__title">Best Sales</h2>
+            </Col>
+
+            <ProductsList data={bestSalesProduct} />
+          </Row>
+        </Container>
+      </section>
+
+      <section className="timer__count">
+        <Container>
+          <Row>
+            <Col lg="6" md="6"></Col>
+
+            <Col lg="6" md="6">
+              <img src={counterImg} alt="" />
+            </Col>
           </Row>
         </Container>
       </section>
