@@ -18,6 +18,8 @@ import products from "../assets/data/products";
 const Home = () => {
   const [trendingProduct, setTrendingProduct] = useState([]);
   const [bestSalesProduct, setBestSalesProduct] = useState([]);
+  const [mobileProduct, setMobileProduct] = useState([]);
+  const [wirelessProduct, setWirelessProduct] = useState([]);
 
   const year = new Date().getFullYear();
 
@@ -30,8 +32,18 @@ const Home = () => {
       (item) => item.category === "sofa"
     );
 
+    const filtredMobileProduct = products.filter(
+      (item) => item.category === "mobile"
+    );
+
+    const filtredWirelessProduct = products.filter(
+      (item) => item.category === "wireless"
+    );
+
     setTrendingProduct(filtredTrendingProducts);
     setBestSalesProduct(filtredBestSalesProduct);
+    setMobileProduct(filtredMobileProduct);
+    setWirelessProduct(filtredWirelessProduct);
   }, []);
   return (
     <Helmet title={"Home"}>
@@ -108,6 +120,18 @@ const Home = () => {
             <Col lg="6" md="6" className="text-end">
               <img src={counterImg} alt="counter" />
             </Col>
+          </Row>
+        </Container>
+      </section>
+
+      <section className="new__arrivals">
+        <Container>
+          <Row>
+            <Col lg="12" className="text-center">
+              <h2 className="section__title">New Arrivals</h2>
+            </Col>
+            <ProductsList data={mobileProduct} />
+            <ProductsList data={wirelessProduct} />
           </Row>
         </Container>
       </section>
