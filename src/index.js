@@ -17,13 +17,12 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <ToastContainer
+          theme="dark"
           position="top-right"
           autoClose={3000}
           closeOnClick
-          pauseOnHover
-          theme="dark"
+          pauseOnHover={false}
         />
-        <ToastContainer />
         <App />
       </Provider>
     </BrowserRouter>

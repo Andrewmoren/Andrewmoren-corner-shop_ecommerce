@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import "../../styles/product-card.css";
 
@@ -22,7 +22,7 @@ const ProductCard = ({ item }) => {
         image: item.imgUrl,
       })
     );
-    alert("product added to the cart");
+    toast.success("Product added successful");
   };
 
   return (
