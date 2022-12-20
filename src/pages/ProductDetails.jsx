@@ -6,11 +6,12 @@ import products from "../assets/data/products";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/CommonSection";
 import { motion } from "framer-motion";
-
+import ProductList from "../components/UI/ProductsList";
 import "../styles/product-details.css";
 
 const ProductDetails = () => {
   const [tab, setTab] = useState("desc");
+  const [rating, setRating] = useState(null);
   const { id } = useParams();
   const product = products.find((item) => item.id === id);
   const {
@@ -21,7 +22,10 @@ const ProductDetails = () => {
     reviews,
     description,
     shortDesc,
+    category,
   } = product;
+
+  const relatedProsucts = products.filter((item) => item.category === category);
   return (
     <Helmet title={productName}>
       <CommonSection title={productName} />
@@ -37,19 +41,19 @@ const ProductDetails = () => {
                 <h2>{productName}</h2>
                 <div className="product__rating d-flex align-items-center gap-5 mb-3">
                   <div>
-                    <span>
+                    <span onClick={() => setRating(1)}>
                       <i className="ri-star-s-fill"></i>
                     </span>
-                    <span>
+                    <span onClick={() => setRating(2)}>
                       <i className="ri-star-s-fill"></i>
                     </span>
-                    <span>
+                    <span onClick={() => setRating(3)}>
                       <i className="ri-star-s-fill"></i>
                     </span>
-                    <span>
+                    <span onClick={() => setRating(4)}>
                       <i className="ri-star-s-fill"></i>
                     </span>
-                    <span>
+                    <span onClick={() => setRating(5)}>
                       <i className="ri-star-half-s-line"></i>
                     </span>
                   </div>
@@ -59,7 +63,10 @@ const ProductDetails = () => {
                   </p>
                 </div>
 
-                <span className="product__price">$ {price}</span>
+                <div>
+                  <span className="product__price">$ {price}</span>
+                  <span>Category : {category}</span>
+                </div>
                 <p className="mt-3">{shortDesc}</p>
 
                 <motion.button whileTap={{ scale: 1.2 }} className="buy__btn">
@@ -107,12 +114,13 @@ const ProductDetails = () => {
                     </ul>
 
                     <div className="review__form">
+                      <h4>Leave your experience</h4>
                       <form action="">
                         <div className="form__group">
                           <input type="text" placeholder="Enter name" />
                         </div>
 
-                        <div className="form__group">
+                        <div className="form__group d-flex align-items-center gap-5">
                           <span>
                             1<i className="ri-star-s-fill"></i>
                           </span>
@@ -131,14 +139,28 @@ const ProductDetails = () => {
                         </div>
 
                         <div className="form__group">
-                          <input type="text" placeholder="Revies Message..." />
+                          <textarea
+                            rows={4}
+                            type="text"
+                            placeholder="Revies Message..."
+                          />
                         </div>
+
+                        <button type="submit" className="buy__btn">
+                          Submit
+                        </button>
                       </form>
                     </div>
                   </div>
                 </div>
               )}
             </Col>
+
+            <Col lg="12" className="mt-5">
+              <h2 className="related__title">You might also like</h2>
+            </Col>
+
+            <ProductList data={relatedProsucts} />
           </Row>
         </Container>
       </section>
