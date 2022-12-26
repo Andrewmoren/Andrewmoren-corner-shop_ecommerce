@@ -22,6 +22,8 @@ const Signup = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const signup = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -59,8 +61,11 @@ const Signup = () => {
         }
       );
 
-      console.log(user);
+      setLoading(false);
+      toast.success("Account created");
+      navigate("/login");
     } catch (error) {
+      setLoading(false);
       toast.error("something went wrong");
     }
   };
@@ -69,50 +74,56 @@ const Signup = () => {
       <section>
         <Container>
           <Row>
-            <Col lg="6" className="m-auto text-center">
-              <h3 className="fw-bold mb-4">Signup</h3>
-              <Form className="auth__form" onSubmit={signup}>
-                <FormGroup className="form__group">
-                  <input
-                    type="text"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup className="form__group">
-                  <input
-                    type="email"
-                    placeholder="Enter you email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </FormGroup>
-                <FormGroup className="form__group">
-                  <input
-                    type="password"
-                    placeholder="Enter you password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FormGroup>
+            {loading ? (
+              <Col lg="12" className="text-center">
+                <h5 className="fw-bold">Loading...</h5>
+              </Col>
+            ) : (
+              <Col lg="6" className="m-auto text-center">
+                <h3 className="fw-bold mb-4">Signup</h3>
+                <Form className="auth__form" onSubmit={signup}>
+                  <FormGroup className="form__group">
+                    <input
+                      type="text"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </FormGroup>
+                  <FormGroup className="form__group">
+                    <input
+                      type="email"
+                      placeholder="Enter you email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormGroup>
+                  <FormGroup className="form__group">
+                    <input
+                      type="password"
+                      placeholder="Enter you password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </FormGroup>
 
-                <FormGroup className="form__group">
-                  <input
-                    type="file"
-                    onChange={(e) => setFile(e.target.files[0])}
-                  />
-                </FormGroup>
+                  <FormGroup className="form__group">
+                    <input
+                      type="file"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                  </FormGroup>
 
-                <button type="submit" className="buy__btn auth__btn">
-                  Create an Account
-                </button>
-                <p>
-                  Already have an account?
-                  <Link to="/login">Login</Link>
-                </p>
-              </Form>
-            </Col>
+                  <button type="submit" className="buy__btn auth__btn">
+                    Create an Account
+                  </button>
+                  <p>
+                    Already have an account?
+                    <Link to="/login">Login</Link>
+                  </p>
+                </Form>
+              </Col>
+            )}
           </Row>
         </Container>
       </section>
