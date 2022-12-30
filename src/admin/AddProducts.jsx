@@ -9,13 +9,28 @@ const AddProducts = () => {
   const [enterPrice, setEnterPrice] = useState("");
   const [enterProductImg, setEnterProductImg] = useState(null);
 
+  const addProduct = async (e) => {
+    e.preventDefault();
+
+    const product = {
+      title: enterTitle,
+      shortDesc: enterShortDesc,
+      description: enterDescription,
+      category: enterCategory,
+      price: enterPrice,
+      imgUrl: enterProductImg,
+    };
+
+    console.log(product);
+  };
+
   return (
     <section>
       <Container>
         <Row>
           <Col lg="12">
             <h4 className="mb-5">Add Products</h4>
-            <Form>
+            <Form onSubmit={addProduct}>
               <FormGroup className="form__group">
                 <span>Product title</span>
                 <input
@@ -78,7 +93,11 @@ const AddProducts = () => {
               <div>
                 <FormGroup className="form__group">
                   <span>Product Image</span>
-                  <input type="file" required />
+                  <input
+                    type="file"
+                    onChange={(e) => setEnterProductImg(e.target.files(0))}
+                    required
+                  />
                 </FormGroup>
               </div>
 
