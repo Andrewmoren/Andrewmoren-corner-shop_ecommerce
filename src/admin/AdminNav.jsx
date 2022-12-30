@@ -1,7 +1,10 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
 
+import useAuth from "../custom-hooks/useAuth";
+
 const AdminNav = () => {
+  const { currentUser } = useAuth();
   return (
     <header className="admin__header">
       <div className="admin__nav-top">
@@ -24,7 +27,7 @@ const AdminNav = () => {
               <span>
                 <i className="ri-settings-2-line"></i>
               </span>
-              <img src="" alt="" />
+              <img src={currentUser.photoURL} alt="photo" />
             </div>
           </div>
         </Container>
