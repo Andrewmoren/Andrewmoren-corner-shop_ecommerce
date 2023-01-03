@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
 import { toast } from "react-toastify";
 
+import { db, storage } from "../firebase.config";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
+
 const AddProducts = () => {
   const [enterTitle, setEnterTitle] = useState("");
   const [enterShortDesc, setEnterShortDesc] = useState("");
@@ -24,6 +28,35 @@ const AddProducts = () => {
     };
 
     // add product to the firebase
+
+    try {
+      const docRef = await collection(db, "products");
+
+      const storageRef = ref(
+        storage,
+        `productImages/${Date.now() + enterProductImg.name}`
+      );
+
+      const uploadTask = uploadBytesResumable(storageRef, enterProductImg);
+
+      uploadTask.on(
+        () => {
+          toast.error("images not uploaded!");
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            await addDoc(docRef, {
+              title: enterTitle,
+              shortDesc: enterShortDesc,
+              description: enterDescription,
+              category: enterCategory,
+              price: enterPrice,
+              imgUrl: downloadURL,
+            });
+          });
+        }
+      );
+    } catch (error) {}
 
     toast.success("product successfully added");
 
