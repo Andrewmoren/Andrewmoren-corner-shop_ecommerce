@@ -1,8 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import productImg from "../assets/images/arm-chair-01.jpg";
+
+import useGetData from "../custom-hooks/useGetData";
 
 const AllProducts = () => {
+  const { data: productsData } = useGetData("products");
+
   return (
     <section>
       <Container>
@@ -19,17 +22,19 @@ const AllProducts = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <img src={productImg} alt="" />
-                  </td>
-                  <td>Arn chair</td>
-                  <td>Chair</td>
-                  <td>$193</td>
-                  <td>
-                    <button className="btn btn-danger">Delete</button>
-                  </td>
-                </tr>
+                {productsData.map((item) => (
+                  <tr key={item.id}>
+                    <td>
+                      <img src={item.imgUrl} alt="image" />
+                    </td>
+                    <td>{item.title}</td>
+                    <td>{item.category}</td>
+                    <td>${item.price}</td>
+                    <td>
+                      <button className="btn btn-danger">Delete</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </Col>
