@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, FormGroup } from "reactstrap";
+import { toast } from "react-toastify";
 
 const AddProducts = () => {
   const [enterTitle, setEnterTitle] = useState("");
@@ -8,6 +9,7 @@ const AddProducts = () => {
   const [enterCategory, setEnterCategory] = useState("");
   const [enterPrice, setEnterPrice] = useState("");
   const [enterProductImg, setEnterProductImg] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const addProduct = async (e) => {
     e.preventDefault();
@@ -20,6 +22,10 @@ const AddProducts = () => {
       price: enterPrice,
       imgUrl: enterProductImg,
     };
+
+    // add product to the firebase
+
+    toast.success("product successfully added");
 
     console.log(product);
   };
@@ -37,7 +43,7 @@ const AddProducts = () => {
                   type="text"
                   placeholder="Double sofa"
                   value={enterTitle}
-                  onClick={(e) => setEnterTitle(e.target.value)}
+                  onChange={(e) => setEnterTitle(e.target.value)}
                   required
                 />
               </FormGroup>
@@ -47,7 +53,7 @@ const AddProducts = () => {
                   type="text"
                   placeholder="Other..."
                   value={enterShortDesc}
-                  onClick={(e) => setEnterShortDesc(e.target.value)}
+                  onChange={(e) => setEnterShortDesc(e.target.value)}
                   required
                 />
               </FormGroup>
@@ -57,7 +63,7 @@ const AddProducts = () => {
                   type="text"
                   placeholder="Description..."
                   value={enterDescription}
-                  onClick={(e) => setEnterDescription(e.target.value)}
+                  onChange={(e) => setEnterDescription(e.target.value)}
                   required
                 />
               </FormGroup>
@@ -69,7 +75,7 @@ const AddProducts = () => {
                     type="number"
                     placeholder="$100"
                     value={enterPrice}
-                    onClick={(e) => setEnterPrice(e.target.value)}
+                    onChange={(e) => setEnterPrice(e.target.value)}
                     required
                   />
                 </FormGroup>
@@ -79,7 +85,7 @@ const AddProducts = () => {
                   <select
                     className="w-100 p-2"
                     value={enterCategory}
-                    onClick={(e) => setEnterCategory(e.target.value)}
+                    onChange={(e) => setEnterCategory(e.target.value)}
                   >
                     <option value="chair">Chair</option>
                     <option value="sofa">Sofa</option>
@@ -95,7 +101,7 @@ const AddProducts = () => {
                   <span>Product Image</span>
                   <input
                     type="file"
-                    onChange={(e) => setEnterProductImg(e.target.files(0))}
+                    onChange={(e) => setEnterProductImg(e.target.files[0])}
                     required
                   />
                 </FormGroup>
