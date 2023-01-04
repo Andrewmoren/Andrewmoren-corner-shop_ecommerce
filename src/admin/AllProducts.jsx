@@ -4,7 +4,7 @@ import { Container, Row, Col } from "reactstrap";
 import useGetData from "../custom-hooks/useGetData";
 
 const AllProducts = () => {
-  const { data: productsData } = useGetData("products");
+  const { data: productsData, loading } = useGetData("products");
 
   return (
     <section>
@@ -22,19 +22,23 @@ const AllProducts = () => {
                 </tr>
               </thead>
               <tbody>
-                {productsData.map((item) => (
-                  <tr key={item.id}>
-                    <td>
-                      <img src={item.imgUrl} alt="image" />
-                    </td>
-                    <td>{item.title}</td>
-                    <td>{item.category}</td>
-                    <td>${item.price}</td>
-                    <td>
-                      <button className="btn btn-danger">Delete</button>
-                    </td>
-                  </tr>
-                ))}
+                {loading ? (
+                  <h3 className="py-5">Loading...</h3>
+                ) : (
+                  productsData.map((item) => (
+                    <tr key={item.id}>
+                      <td>
+                        <img src={item.imgUrl} alt="image" />
+                      </td>
+                      <td>{item.title}</td>
+                      <td>{item.category}</td>
+                      <td>${item.price}</td>
+                      <td>
+                        <button className="btn btn-danger">Delete</button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </Col>
