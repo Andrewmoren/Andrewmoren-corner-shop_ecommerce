@@ -2,8 +2,15 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import useGetData from "../custom-hooks/useGetData";
 
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../firebase.config";
+
 const Users = () => {
   const { data: userData, loading } = useGetData("users");
+
+  const deleteUser = async (id) => {
+    await deleteDoc(doc(db, "users", id));
+  };
   return (
     <section>
       <Container>
