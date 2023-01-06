@@ -4,12 +4,14 @@ import useGetData from "../custom-hooks/useGetData";
 
 import { deleteDoc, doc } from "firebase/firestore";
 import { db } from "../firebase.config";
+import { toast } from "react-toastify";
 
 const Users = () => {
   const { data: userData, loading } = useGetData("users");
 
   const deleteUser = async (id) => {
     await deleteDoc(doc(db, "users", id));
+    toast.success("user deleted!");
   };
   return (
     <section>
@@ -41,7 +43,14 @@ const Users = () => {
                       <td>{user.displayNAme}</td>
                       <td>{user.email}</td>
                       <td>
-                        <button className="btn btn-danger">Delete</button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => {
+                            deleteUser(user.uid);
+                          }}
+                        >
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))
